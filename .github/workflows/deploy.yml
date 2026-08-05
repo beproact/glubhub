@@ -10,13 +10,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
 
-      - name: Install and Build
-        run: |
-          npm install
-          npm run build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate GraphQL operations
+        run: npm run gql-gen
+
+      - name: Build app
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
